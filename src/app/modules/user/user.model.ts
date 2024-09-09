@@ -37,6 +37,7 @@ const userSchema = new Schema<TUser>(
       type: String,
       enum: {
         values: ['admin', 'user'],
+        message: '{VALUE} is not a valid user!',
       },
     },
   },
