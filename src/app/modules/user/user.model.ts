@@ -21,7 +21,7 @@ const userSchema = new Schema<TUser>(
     password: {
       type: String,
       required: [true, 'Password is required'],
-      select: 0,
+      select: false,
     },
     phone: {
       type: String,
@@ -62,11 +62,11 @@ userSchema.pre('save', async function (next) {
 });
 
 //? set '' after saving password
-userSchema.post('save', function (doc, next) {
-  doc.password = '';
+// userSchema.post('save', function (doc, next) {
+//   doc.password = '';
 
-  next();
-});
+//   next();
+// });
 
 //? Is User Exist
 userSchema.statics.isUserExistsByEmail = async function (email: string) {

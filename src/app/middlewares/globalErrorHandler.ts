@@ -5,7 +5,7 @@ import config from '../config';
 import handleZodError from '../errors/handleZodError';
 import handleValidationError from '../errors/handleValidationError';
 import handleCastError from '../errors/handleCastError';
-import AppError from '../errors/AppError';
+import ApiError from '../errors/ApiError';
 import handleDuplicateError from '../errors/handleDuplicateError';
 
 const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
@@ -43,7 +43,7 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
     statusCode = simplifiedError?.statusCode;
     message = simplifiedError?.message;
     errorSources = simplifiedError?.errorSources;
-  } else if (err instanceof AppError) {
+  } else if (err instanceof ApiError) {
     statusCode = err?.statusCode;
     message = err?.message;
     errorSources = [

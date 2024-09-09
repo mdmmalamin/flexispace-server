@@ -11,7 +11,7 @@ const signupUser = catchAsync(async (req, res) => {
   apiResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'User is created successfully',
+    message: 'User registered successfully',
     data: result,
   });
 });
