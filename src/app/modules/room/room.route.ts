@@ -13,4 +13,6 @@ router.get('/:id', RoomControllers.retrieveRoomById);
 
 router.put('/:id', auth(USER_ROLE.admin), RoomControllers.updateRoomById);
 
+router.delete('/:id', auth(USER_ROLE.admin), RoomControllers.deleteRoomById);
+
 export const RoomRoutes = router;
