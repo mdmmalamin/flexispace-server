@@ -5,6 +5,12 @@ import { USER_ROLE } from '../user/user.constant';
 
 const router = express.Router();
 
-router.post('/rooms', auth(USER_ROLE.admin), RoomControllers.createRoom);
+router.post('/', auth(USER_ROLE.admin), RoomControllers.createRoom);
+
+router.get('/', RoomControllers.retrieveAllRooms);
+
+router.get('/:id', RoomControllers.retrieveRoomById);
+
+router.put('/:id', auth(USER_ROLE.admin), RoomControllers.updateRoomById);
 
 export const RoomRoutes = router;
