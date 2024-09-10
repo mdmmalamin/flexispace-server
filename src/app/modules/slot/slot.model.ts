@@ -20,6 +20,10 @@ const slotSchema = new Schema<TSlot>(
       type: String,
       required: true,
     },
+    // slotDuration: {
+    //   type: Number,
+    //   default: 60,
+    // },
     isBooked: {
       type: Boolean,
       default: false,
