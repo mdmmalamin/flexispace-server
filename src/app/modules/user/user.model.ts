@@ -32,6 +32,7 @@ const userSchema = new Schema<TUser, UserModel>(
     address: {
       type: String,
       trim: true,
+      default: '',
     },
     role: {
       type: String,
@@ -60,13 +61,6 @@ userSchema.pre('save', async function (next) {
 
   next();
 });
-
-//? set '' after saving password
-// userSchema.post('save', function (doc, next) {
-//   doc.password = '';
-
-//   next();
-// });
 
 //? Is User Exist
 userSchema.statics.isUserExistsByEmail = async function (email: string) {

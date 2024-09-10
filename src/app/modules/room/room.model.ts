@@ -11,7 +11,7 @@ const roomSchema = new Schema<TRoom>(
     roomNo: {
       type: Number,
       required: [true, 'Room no. is required'],
-      unique: true,
+      // unique: true,
     },
     floorNo: {
       type: Number,
@@ -25,12 +25,12 @@ const roomSchema = new Schema<TRoom>(
       type: Number,
       required: [true, 'Price per slot is required'],
     },
-    amenities: [
-      {
-        type: String,
-        trim: true,
-      },
-    ],
+    amenities: {
+      type: [String],
+      trim: true,
+      default: [],
+    },
+
     isDeleted: {
       type: Boolean,
       default: false,
@@ -40,6 +40,16 @@ const roomSchema = new Schema<TRoom>(
     timestamps: true,
   },
 );
+
+// Set up the toJSON transform to remove unwanted fields
+roomSchema.set('toJSON', {
+  transform: (doc, remove) => {
+    delete remove.createdAt;
+    delete remove.updatedAt;
+    delete remove.__v;
+    return remove;
+  },
+});
 
 export const Room = model<TRoom>('Room', roomSchema);
 
