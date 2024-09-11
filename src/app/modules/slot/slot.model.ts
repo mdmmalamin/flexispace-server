@@ -6,10 +6,10 @@ const slotSchema = new Schema<TSlot>(
     room: {
       type: Schema.Types.ObjectId,
       ref: 'Room',
-      required: true,
+      required: [true, 'Room is required!'],
     },
     date: {
-      type: Date,
+      type: String,
       required: true,
     },
     startTime: {
@@ -33,6 +33,15 @@ const slotSchema = new Schema<TSlot>(
     timestamps: true,
   },
 );
+
+slotSchema.set('toJSON', {
+  transform: (doc, ret) => {
+    delete ret.__v;
+    delete ret.createdAt;
+    delete ret.updatedAt;
+    return ret;
+  },
+});
 
 export const Slot = model<TSlot>('Slot', slotSchema);
 

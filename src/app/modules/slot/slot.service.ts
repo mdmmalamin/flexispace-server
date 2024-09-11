@@ -7,8 +7,9 @@ import { formatTime } from './slot.utils';
 
 const createSlotIntoDB = async (payload: TSlot) => {
   //? check --> all fields are send in payload, not empty
-  //? check --> if room not exist then error throw
-  //? convert --> startTime & endTime convert to minutes
+  //? check --> isRoomExist
+  //? convert --> startTime & endTime convert to minutes & format to business logic
+  //? check --> if startTime, endTime is matched with same date
   //? loop --> create slot or slots into db: depends on total duration of slot and slotDuration
 
   const { room, date, startTime, endTime } = payload;
@@ -22,32 +23,46 @@ const createSlotIntoDB = async (payload: TSlot) => {
     throw new ApiError(httpStatus.CONFLICT, 'This room is not found!');
   }
 
+  const existingSlot = await Slot.findOne({
+    room,
+    date,
+    startTime: { $eq: startTime },
+  });
+
+  if (existingSlot) {
+    throw new ApiError(
+      httpStatus.CONFLICT,
+      'A slot with the same start time already exists for this room and date.',
+    );
+  }
+
   const slotDuration = 60;
 
   const [startHours, startMinutes] = startTime.split(':').map(Number);
   const [endHours, endMinutes] = endTime.split(':').map(Number);
 
-  const startTotalMinutes = startHours * 60 + startMinutes;
-  const endTotalMinutes = endHours * 60 + endMinutes;
+  const startTotalMinutes = startHours * slotDuration + startMinutes;
+  const endTotalMinutes = endHours * slotDuration + endMinutes;
   const totalDuration = endTotalMinutes - startTotalMinutes;
 
-  if (totalDuration <= 0) {
+  if (endTotalMinutes <= startTotalMinutes) {
     throw new ApiError(
       httpStatus.BAD_REQUEST,
-      'End time must be after start time',
+      'End time must be after start time!',
     );
   }
 
   const createdSlots = [];
 
+  let currentStartMinutes = startTotalMinutes;
   for (let i = 0; i < totalDuration / slotDuration; i++) {
-    let currentStartMinutes = startTotalMinutes;
-
     const updatedPayload = {
       ...payload,
       startTime: formatTime(currentStartMinutes),
       endTime: formatTime(currentStartMinutes + slotDuration),
     };
+
+    currentStartMinutes = currentStartMinutes + slotDuration;
 
     try {
       const slot = await Slot.create(updatedPayload);
