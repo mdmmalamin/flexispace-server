@@ -43,17 +43,10 @@ const createSlotIntoDB = async (payload: TSlot) => {
   for (let i = 0; i < totalDuration / slotDuration; i++) {
     let currentStartMinutes = startTotalMinutes;
 
-    const slotEndMinutes = currentStartMinutes + slotDuration;
-    const slotEndHours = Math.floor(slotEndMinutes / 60);
-    const adjustedSlotEndMinutes = slotEndMinutes % 60;
-
     const updatedPayload = {
       ...payload,
-      startTime: formatTime(
-        Math.floor(currentStartMinutes / 60),
-        currentStartMinutes % 60,
-      ),
-      endTime: formatTime(slotEndHours, adjustedSlotEndMinutes),
+      startTime: formatTime(currentStartMinutes),
+      endTime: formatTime(currentStartMinutes + slotDuration),
     };
 
     try {
