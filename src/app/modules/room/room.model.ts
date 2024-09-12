@@ -51,6 +51,11 @@ roomSchema.set('toJSON', {
   },
 });
 
+// roomSchema.post('save', function (doc, next) {
+//   console.log(doc)
+//   next();
+// });
+
 export const Room = model<TRoom>('Room', roomSchema);
 
 // Room Model:

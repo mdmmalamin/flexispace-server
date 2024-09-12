@@ -22,7 +22,7 @@ const retrieveRoomByIdFromDB = async (id: string) => {
   return await Room.findById(id);
 };
 
-//!!! TODO: do not completed
+//!!! TODO: I'm trying to update & optimize this service
 const updateRoomByIdIntoDB = async (id: string, payload: Partial<TRoom>) => {
   if (typeof payload !== 'object' || payload === null) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid update data!');
@@ -33,7 +33,20 @@ const updateRoomByIdIntoDB = async (id: string, payload: Partial<TRoom>) => {
     throw new ApiError(httpStatus.NOT_FOUND, 'Room not found!');
   }
 
-  console.log(id, payload);
+  const updatedPayload = { ...room.toObject(), ...payload };
+
+  const result = await Room.findByIdAndUpdate(
+    id,
+    { ...updatedPayload },
+    {
+      new: true,
+      runValidators: true,
+    },
+  );
+
+  console.log(updatedPayload)
+
+  return result;
 };
 
 const deleteRoomByIdFromDB = async (id: string) => {
