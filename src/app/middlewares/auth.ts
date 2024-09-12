@@ -44,6 +44,8 @@ const auth = (...requiredRoles: TUserRole[]) => {
     }
 
     console.log('role: ', role);
+
+    req.user = user;
     next();
   });
 };

@@ -27,7 +27,7 @@ const retrieveAllRooms = catchAsync(async (req, res) => {
 
 const retrieveRoomById = catchAsync(async (req, res) => {
   const { id } = req.params;
-  const result = await RoomServices.retrieveRoomByIdFromDB(id);
+  const result = await RoomServices.retrieveRoomFromDB(id);
 
   apiResponse(res, {
     success: true,
@@ -39,7 +39,7 @@ const retrieveRoomById = catchAsync(async (req, res) => {
 
 const updateRoomById = catchAsync(async (req, res) => {
   const { id } = req.params;
-  const result = await RoomServices.updateRoomByIdIntoDB(id, req.body);
+  const result = await RoomServices.updateRoomIntoDB(id, req.body);
 
   apiResponse(res, {
     success: true,
@@ -51,7 +51,7 @@ const updateRoomById = catchAsync(async (req, res) => {
 
 const deleteRoomById = catchAsync(async (req, res) => {
   const { id } = req.params;
-  const result = await RoomServices.deleteRoomByIdFromDB(id);
+  const result = await RoomServices.deleteRoomFromDB(id);
 
   apiResponse(res, {
     success: true,

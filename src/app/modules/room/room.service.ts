@@ -18,19 +18,24 @@ const retrieveAllRoomsFromDB = async () => {
   return await Room.find();
 };
 
-const retrieveRoomByIdFromDB = async (id: string) => {
+const retrieveRoomFromDB = async (id: string) => {
+  const room = await Room.findById(id);
+  if (!room) {
+    throw new ApiError(httpStatus.CONFLICT, 'This room does not exists!');
+  }
+
   return await Room.findById(id);
 };
 
 //!!! TODO: I'm trying to update & optimize this service
-const updateRoomByIdIntoDB = async (id: string, payload: Partial<TRoom>) => {
+const updateRoomIntoDB = async (id: string, payload: Partial<TRoom>) => {
   if (typeof payload !== 'object' || payload === null) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid update data!');
   }
 
   const room = await Room.findById(id);
   if (!room) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Room not found!');
+    throw new ApiError(httpStatus.NOT_FOUND, 'This room not found!');
   }
 
   const updatedPayload = { ...room.toObject(), ...payload };
@@ -44,23 +49,30 @@ const updateRoomByIdIntoDB = async (id: string, payload: Partial<TRoom>) => {
     },
   );
 
-  console.log(updatedPayload)
+  console.log(updatedPayload);
 
   return result;
 };
 
-const deleteRoomByIdFromDB = async (id: string) => {
-  return await Room.findByIdAndUpdate(
+const deleteRoomFromDB = async (id: string) => {
+  const room = await Room.findById(id);
+  if (!room) {
+    throw new ApiError(httpStatus.CONFLICT, 'This room does not exists!');
+  }
+
+  const result = await Room.findByIdAndUpdate(
     id,
     { isDeleted: true },
     { new: true, runValidators: true },
   );
+
+  return result;
 };
 
 export const RoomServices = {
   createRoomIntoDB,
   retrieveAllRoomsFromDB,
-  retrieveRoomByIdFromDB,
-  updateRoomByIdIntoDB,
-  deleteRoomByIdFromDB,
+  retrieveRoomFromDB,
+  updateRoomIntoDB,
+  deleteRoomFromDB,
 };
