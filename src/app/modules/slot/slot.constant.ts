@@ -1,1 +1,1 @@
-export const slotSearchableFields = ['roomId'];
+export const slotSearchableFields = ['room.name'];

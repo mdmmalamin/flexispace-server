@@ -5,7 +5,6 @@ import { Slot } from './slot.model';
 import { Room } from '../room/room.model';
 import { formatTime } from './slot.utils';
 import QueryBuilder from '../../builder/QueryBuilder';
-// import { slotSearchableFields } from './slot.constant';
 
 const createSlotIntoDB = async (payload: TSlot) => {
   //? check --> all fields are send in payload, not empty
@@ -81,16 +80,13 @@ const createSlotIntoDB = async (payload: TSlot) => {
 };
 
 const retrieveAvailableSlotsFromDB = async (query: Record<string, unknown>) => {
-  console.log(query?.date);
+  // console.log(query?.date);
   const availableSlotsQuery = new QueryBuilder(
     Slot.find({
       isBooked: false,
     }).populate('room'),
     query,
-  )
-    // .search(slotSearchableFields)
-    .filter();
-  // console.log(availableSlotsQuery);
+  ).filter();
   return availableSlotsQuery.modelQuery;
 };
 
