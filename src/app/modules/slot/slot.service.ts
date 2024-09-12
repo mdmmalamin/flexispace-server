@@ -4,12 +4,14 @@ import { TSlot } from './slot.interface';
 import { Slot } from './slot.model';
 import { Room } from '../room/room.model';
 import { formatTime } from './slot.utils';
+import QueryBuilder from '../../builder/QueryBuilder';
+// import { slotSearchableFields } from './slot.constant';
 
 const createSlotIntoDB = async (payload: TSlot) => {
   //? check --> all fields are send in payload, not empty
   //? check --> isRoomExist
   //? convert --> startTime & endTime convert to minutes & format to business logic
-  //? check --> if startTime, endTime is matched with same date
+  //? check --> if startTime is matched with same date
   //? loop --> create slot or slots into db: depends on total duration of slot and slotDuration
 
   const { room, date, startTime, endTime } = payload;
@@ -78,6 +80,21 @@ const createSlotIntoDB = async (payload: TSlot) => {
   return createdSlots;
 };
 
+const retrieveAvailableSlotsFromDB = async (query: Record<string, unknown>) => {
+  console.log(query?.date);
+  const availableSlotsQuery = new QueryBuilder(
+    Slot.find({
+      isBooked: false,
+    }).populate('room'),
+    query,
+  )
+    // .search(slotSearchableFields)
+    .filter();
+  // console.log(availableSlotsQuery);
+  return availableSlotsQuery.modelQuery;
+};
+
 export const SlotServices = {
   createSlotIntoDB,
+  retrieveAvailableSlotsFromDB,
 };

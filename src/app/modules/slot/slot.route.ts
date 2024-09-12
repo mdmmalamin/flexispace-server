@@ -7,4 +7,6 @@ const router = express.Router();
 
 router.post('/', auth(USER_ROLE.admin), SlotControllers.createSlot);
 
+router.get('/availability', SlotControllers.retrieveAvailableSlots);
+
 export const SlotRoutes = router;
