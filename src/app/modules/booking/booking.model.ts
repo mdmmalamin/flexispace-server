@@ -17,16 +17,15 @@ const bookingSchema = new Schema<TBooking>(
     ],
     user: {
       type: Schema.Types.ObjectId,
-      ref: 'Room',
+      ref: 'User',
       required: true,
     },
     date: {
-      type: Date,
+      type: String,
       required: true,
     },
     totalAmount: {
       type: Number,
-      required: true,
     },
     isConfirmed: {
       type: String,
@@ -41,5 +40,14 @@ const bookingSchema = new Schema<TBooking>(
     timestamps: true,
   },
 );
+
+bookingSchema.set('toJSON', {
+  transform: (doc, remove) => {
+    delete remove.createdAt;
+    delete remove.updatedAt;
+    delete remove.__v;
+    return remove;
+  },
+});
 
 export const Booking = model<TBooking>('Booking', bookingSchema);

@@ -47,6 +47,15 @@ const userSchema = new Schema<TUser, UserModel>(
   },
 );
 
+userSchema.set('toJSON', {
+  transform: (doc, ret) => {
+    delete ret.__v;
+    delete ret.createdAt;
+    delete ret.updatedAt;
+    return ret;
+  },
+});
+
 //? Pre-save hook to automatically capitalize the name before saving
 //?hashing password and save into DB
 userSchema.pre('save', async function (next) {
