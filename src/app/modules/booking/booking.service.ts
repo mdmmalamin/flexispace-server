@@ -54,7 +54,10 @@ const createBookingIntoDB = async (payload: Partial<TBooking>) => {
 };
 
 const retrieveAllBookingsFromDB = async () => {
-  return await Booking.find();
+  return await Booking.find()
+    .populate('slots')
+    .populate('room')
+    .populate('user');
 };
 
 const retrieveUsersBookingsFromDB = async () => {};
