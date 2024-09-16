@@ -39,7 +39,7 @@ const auth = (...requiredRoles: TUserRole[]) => {
     if (requiredRoles && !requiredRoles.includes(role)) {
       throw new ApiError(
         httpStatus.UNAUTHORIZED,
-        'You are not authorized! invalid role!',
+        'You have no access to this route',
       );
     }
 

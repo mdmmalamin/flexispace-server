@@ -1,18 +1,19 @@
 import { ErrorRequestHandler } from 'express';
 import { ZodError } from 'zod';
-import { TErrorSources } from '../interface/error';
+import { TErrorMessages } from '../interface/error';
 import config from '../config';
 import handleZodError from '../errors/handleZodError';
 import handleValidationError from '../errors/handleValidationError';
 import handleCastError from '../errors/handleCastError';
 import ApiError from '../errors/ApiError';
 import handleDuplicateError from '../errors/handleDuplicateError';
+import httpStatus from 'http-status';
 
 const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
   // setting default values
   let statusCode = 500;
   let message = 'Something went wrong!';
-  let errorSources: TErrorSources = [
+  let errorMessages: TErrorMessages = [
     {
       path: '',
       message: 'Something went wrong!',
@@ -24,37 +25,39 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
 
     statusCode = simplifiedError?.statusCode;
     message = simplifiedError?.message;
-    errorSources = simplifiedError?.errorSources;
+    errorMessages = simplifiedError?.errorMessages;
   } else if (err?.name === 'ValidationError') {
     const simplifiedError = handleValidationError(err);
 
     statusCode = simplifiedError?.statusCode;
     message = simplifiedError?.message;
-    errorSources = simplifiedError?.errorSources;
+    errorMessages = simplifiedError?.errorMessages;
   } else if (err?.name === 'CastError') {
     const simplifiedError = handleCastError(err);
 
     statusCode = simplifiedError?.statusCode;
     message = simplifiedError?.message;
-    errorSources = simplifiedError?.errorSources;
+    errorMessages = simplifiedError?.errorMessages;
   } else if (err?.code === 11000) {
     const simplifiedError = handleDuplicateError(err);
 
     statusCode = simplifiedError?.statusCode;
     message = simplifiedError?.message;
-    errorSources = simplifiedError?.errorSources;
+    errorMessages = simplifiedError?.errorMessages;
   } else if (err instanceof ApiError) {
     statusCode = err?.statusCode;
     message = err?.message;
-    errorSources = [
-      {
-        path: '',
-        message: err?.message,
-      },
-    ];
+
+    if (statusCode === httpStatus.UNAUTHORIZED) {
+      return res.status(statusCode).json({
+        success: false,
+        statusCode: err?.statusCode,
+        message: 'You have no access to this route',
+      });
+    }
   } else if (err instanceof Error) {
     message = err?.message;
-    errorSources = [
+    errorMessages = [
       {
         path: '',
         message: err?.message,
@@ -65,10 +68,10 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
   // ultimate return
   return res.status(statusCode).json({
     success: false,
-    statusCode,
+    // statusCode,
     message,
-    errorSources,
-    fullError: config.NODE_ENV === 'development' ? err : null,
+    errorMessages,
+    // fullError: config.NODE_ENV === 'development' ? err : null,
     stack: config.NODE_ENV === 'development' ? err?.stack : null,
   });
 };
@@ -80,7 +83,7 @@ export default globalErrorHandler;
 
   success
   message
-  errorSources: [
+  errorMessages: [
     path: "",
     message: ""
   ]
