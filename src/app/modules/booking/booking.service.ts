@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import httpStatus from 'http-status';
 import ApiError from '../../errors/ApiError';
 import { TBooking } from './booking.interface';
 import { Booking } from './booking.model';
 import { Slot } from '../slot/slot.model';
+import { JwtPayload } from 'jsonwebtoken';
 
 const createBookingIntoDB = async (payload: Partial<TBooking>) => {
   const { date, slots, room, user } = payload;
@@ -11,18 +13,19 @@ const createBookingIntoDB = async (payload: Partial<TBooking>) => {
     throw new ApiError(httpStatus.BAD_REQUEST, 'All fields must be required!');
   }
 
-  const isBookingAvailable = await Slot.find({
+  const availableSlots = await Slot.find({
     $and: [
       {
         _id: { $in: slots },
         date: date,
         room: room,
+        isBooked: false,
       },
     ],
   }).populate('room');
 
-  if (isBookingAvailable?.length !== slots?.length) {
-    const foundSlotIds = isBookingAvailable.map((slot) => slot._id.toString());
+  if (availableSlots?.length !== slots?.length) {
+    const foundSlotIds = availableSlots.map((slot) => slot._id.toString());
 
     const missingSlotIds = slots?.filter(
       (id) => !foundSlotIds.includes(id.toString()),
@@ -30,17 +33,19 @@ const createBookingIntoDB = async (payload: Partial<TBooking>) => {
 
     throw new ApiError(
       httpStatus.BAD_REQUEST,
-      `Some slot IDs are missing from the database. Please verify the following IDs: ${missingSlotIds.join(', ')}.`,
+      `Some slot IDs are either booked or missing from the database. Please verify the following IDs: ${missingSlotIds.join(', ')}.`,
     );
   }
 
-  const bill = isBookingAvailable?.reduce(
-    (acc, curr) => Number(acc + curr.room.pricePerSlot),
+  const bill = availableSlots?.reduce(
+    (acc, curr) => Number(acc + (curr.room as any).pricePerSlot),
     0,
   );
 
   const updatePayload = new Booking({ totalAmount: bill, ...payload });
-  console.log(updatePayload);
+
+  // Update the slots to set isBooked to true
+  await Slot.updateMany({ _id: { $in: slots } }, { $set: { isBooked: true } });
 
   const booking = await updatePayload.save();
 
@@ -48,7 +53,7 @@ const createBookingIntoDB = async (payload: Partial<TBooking>) => {
     .populate('room')
     .populate('slots')
     .populate('user');
-  console.log(result);
+  // console.log(result);
 
   return result;
 };
@@ -60,9 +65,18 @@ const retrieveAllBookingsFromDB = async () => {
     .populate('user');
 };
 
-const retrieveUsersBookingsFromDB = async () => {};
+const retrieveUsersBookingsFromDB = async (user: JwtPayload) => {
+  const result = await Booking.findOne({ user: user._id })
+    .select('-user')
+    .populate('slots')
+    .populate('room');
 
-const updateBookingFromDB = async (payload: Partial<TBooking>) => {};
+  return result;
+};
+
+const updateBookingFromDB = async (payload: Partial<TBooking>) => {
+  console.log(payload)
+};
 
 const deleteBookingFromDB = async (id: string) => {};
 

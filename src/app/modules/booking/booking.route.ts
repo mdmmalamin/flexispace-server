@@ -24,13 +24,13 @@ router.get(
 );
 
 router.put(
-  '/my-bookings/:id',
+  '/bookings/:id',
   auth(USER_ROLE.admin),
   BookingControllers.updateBooking,
 );
 
 router.delete(
-  '/my-bookings/:id',
+  '/bookings/:id',
   auth(USER_ROLE.admin),
   BookingControllers.deleteBookingFromDB,
 );

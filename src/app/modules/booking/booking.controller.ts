@@ -26,7 +26,8 @@ const retrieveAllBookings = catchAsync(async (req, res) => {
 });
 
 const retrieveUsersBookings = catchAsync(async (req, res) => {
-  const result = await BookingServices.retrieveUsersBookingsFromDB();
+  const user = req.user;
+  const result = await BookingServices.retrieveUsersBookingsFromDB(user);
 
   apiResponse(res, {
     success: true,
