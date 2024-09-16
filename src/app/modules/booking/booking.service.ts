@@ -41,14 +41,13 @@ const createBookingIntoDB = async (payload: Partial<TBooking>) => {
   const availableRoom = await Room.findById(room).select(
     '+pricePerSlot +isDeleted',
   );
-  console.log(availableRoom, 'Room');
 
   if (availableRoom?.isDeleted === true) {
     throw new ApiError(httpStatus.CONFLICT, 'This room already deleted!');
   }
 
   const bill = availableSlots?.reduce(
-    (acc, curr) => Number(acc + availableRoom!.pricePerSlot),
+    (acc, curr) => Number(acc + (curr.room as any).pricePerSlot),
     0,
   );
 
@@ -63,7 +62,6 @@ const createBookingIntoDB = async (payload: Partial<TBooking>) => {
     .populate('room')
     .populate('slots')
     .populate('user');
-  // console.log(result);
 
   return result;
 };

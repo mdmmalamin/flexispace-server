@@ -3,9 +3,12 @@ import apiResponse from '../../utils/apiResponse';
 import catchAsync from '../../utils/catchAsync';
 import { UserServices } from './user.service';
 import config from '../../config';
+import { isDataFound } from '../../utils/isDataFound';
 
 const signupUser = catchAsync(async (req, res) => {
   const result = await UserServices.createUserIntoDB(req.body);
+
+  isDataFound(res, result);
 
   apiResponse(res, {
     success: true,
@@ -25,6 +28,8 @@ const loginUser = catchAsync(async (req, res) => {
     sameSite: 'none',
     maxAge: 1000 * 60 * 60 * 24 * 365,
   });
+
+  isDataFound(res, result);
 
   apiResponse(res, {
     success: true,

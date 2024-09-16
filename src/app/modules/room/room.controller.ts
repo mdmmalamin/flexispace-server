@@ -2,9 +2,12 @@ import httpStatus from 'http-status';
 import apiResponse from '../../utils/apiResponse';
 import catchAsync from '../../utils/catchAsync';
 import { RoomServices } from './room.service';
+import { isDataFound } from '../../utils/isDataFound';
 
 const createRoom = catchAsync(async (req, res) => {
   const result = await RoomServices.createRoomIntoDB(req.body);
+
+  isDataFound(res, result);
 
   apiResponse(res, {
     success: true,
@@ -16,6 +19,8 @@ const createRoom = catchAsync(async (req, res) => {
 
 const retrieveAllRooms = catchAsync(async (req, res) => {
   const result = await RoomServices.retrieveAllRoomsFromDB();
+
+  isDataFound(res, result);
 
   apiResponse(res, {
     success: true,
@@ -29,6 +34,8 @@ const retrieveRoomById = catchAsync(async (req, res) => {
   const { id } = req.params;
   const result = await RoomServices.retrieveRoomFromDB(id);
 
+  isDataFound(res, result);
+
   apiResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
@@ -41,6 +48,8 @@ const updateRoomById = catchAsync(async (req, res) => {
   const { id } = req.params;
   const result = await RoomServices.updateRoomIntoDB(id, req.body);
 
+  isDataFound(res, result);
+
   apiResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
@@ -52,6 +61,8 @@ const updateRoomById = catchAsync(async (req, res) => {
 const deleteRoomById = catchAsync(async (req, res) => {
   const { id } = req.params;
   const result = await RoomServices.deleteRoomFromDB(id);
+
+  isDataFound(res, result);
 
   apiResponse(res, {
     success: true,

@@ -2,9 +2,12 @@ import httpStatus from 'http-status';
 import apiResponse from '../../utils/apiResponse';
 import catchAsync from '../../utils/catchAsync';
 import { BookingServices } from './booking.service';
+import { isDataFound } from '../../utils/isDataFound';
 
 const createBooking = catchAsync(async (req, res) => {
   const result = await BookingServices.createBookingIntoDB(req.body);
+
+  isDataFound(res, result);
 
   apiResponse(res, {
     success: true,
@@ -16,6 +19,8 @@ const createBooking = catchAsync(async (req, res) => {
 
 const retrieveAllBookings = catchAsync(async (req, res) => {
   const result = await BookingServices.retrieveAllBookingsFromDB();
+
+  isDataFound(res, result);
 
   apiResponse(res, {
     success: true,
@@ -29,6 +34,8 @@ const retrieveUsersBookings = catchAsync(async (req, res) => {
   const user = req.user;
   const result = await BookingServices.retrieveUsersBookingsFromDB(user);
 
+  isDataFound(res, result);
+
   apiResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
@@ -41,6 +48,8 @@ const updateBooking = catchAsync(async (req, res) => {
   const { id } = req.params;
   const result = await BookingServices.updateBookingFromDB(id, req.body);
 
+  isDataFound(res, result);
+
   apiResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
@@ -52,6 +61,8 @@ const updateBooking = catchAsync(async (req, res) => {
 const deleteBooking = catchAsync(async (req, res) => {
   const { id } = req.params;
   const result = await BookingServices.deleteBookingFromDB(id);
+
+  isDataFound(res, result);
 
   apiResponse(res, {
     success: true,
