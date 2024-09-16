@@ -5,6 +5,7 @@ import { TBooking } from './booking.interface';
 import { Booking } from './booking.model';
 import { Slot } from '../slot/slot.model';
 import { JwtPayload } from 'jsonwebtoken';
+import { Room } from '../room/room.model';
 
 const createBookingIntoDB = async (payload: Partial<TBooking>) => {
   const { date, slots, room, user } = payload;
@@ -37,8 +38,17 @@ const createBookingIntoDB = async (payload: Partial<TBooking>) => {
     );
   }
 
+  const availableRoom = await Room.findById(room).select(
+    '+pricePerSlot +isDeleted',
+  );
+  console.log(availableRoom, 'Room');
+
+  if (availableRoom?.isDeleted === true) {
+    throw new ApiError(httpStatus.CONFLICT, 'This room already deleted!');
+  }
+
   const bill = availableSlots?.reduce(
-    (acc, curr) => Number(acc + (curr.room as any).pricePerSlot),
+    (acc, curr) => Number(acc + availableRoom!.pricePerSlot),
     0,
   );
 
@@ -83,7 +93,18 @@ const updateBookingFromDB = async (id: string, payload: Partial<TBooking>) => {
   return result;
 };
 
-const deleteBookingFromDB = async (id: string) => {};
+const deleteBookingFromDB = async (id: string) => {
+  const result = await Booking.findByIdAndUpdate(
+    id,
+    { isDeleted: true },
+    {
+      new: true,
+      runValidators: true,
+    },
+  );
+
+  return result;
+};
 
 export const BookingServices = {
   createBookingIntoDB,
