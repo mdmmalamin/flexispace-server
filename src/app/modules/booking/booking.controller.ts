@@ -38,7 +38,8 @@ const retrieveUsersBookings = catchAsync(async (req, res) => {
 });
 
 const updateBooking = catchAsync(async (req, res) => {
-  const result = await BookingServices.updateBookingFromDB(req.body);
+  const { id } = req.params;
+  const result = await BookingServices.updateBookingFromDB(id, req.body);
 
   apiResponse(res, {
     success: true,
@@ -48,7 +49,7 @@ const updateBooking = catchAsync(async (req, res) => {
   });
 });
 
-const deleteBookingFromDB = catchAsync(async (req, res) => {
+const deleteBooking = catchAsync(async (req, res) => {
   const { id } = req.params;
   const result = await BookingServices.deleteBookingFromDB(id);
 
@@ -65,5 +66,5 @@ export const BookingControllers = {
   retrieveAllBookings,
   retrieveUsersBookings,
   updateBooking,
-  deleteBookingFromDB,
+  deleteBooking,
 };

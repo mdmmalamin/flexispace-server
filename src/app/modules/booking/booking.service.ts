@@ -74,8 +74,13 @@ const retrieveUsersBookingsFromDB = async (user: JwtPayload) => {
   return result;
 };
 
-const updateBookingFromDB = async (payload: Partial<TBooking>) => {
-  console.log(payload)
+const updateBookingFromDB = async (id: string, payload: Partial<TBooking>) => {
+  const result = await Booking.findByIdAndUpdate(id, payload, {
+    new: true,
+    runValidators: true,
+  });
+
+  return result;
 };
 
 const deleteBookingFromDB = async (id: string) => {};

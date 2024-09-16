@@ -35,6 +35,10 @@ const bookingSchema = new Schema<TBooking>(
       },
       default: 'unconfirmed',
     },
+    isDeleted: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,

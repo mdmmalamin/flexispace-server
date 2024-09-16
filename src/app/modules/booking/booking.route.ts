@@ -32,7 +32,7 @@ router.put(
 router.delete(
   '/bookings/:id',
   auth(USER_ROLE.admin),
-  BookingControllers.deleteBookingFromDB,
+  BookingControllers.deleteBooking,
 );
 
 export const BookingRoutes = router;
