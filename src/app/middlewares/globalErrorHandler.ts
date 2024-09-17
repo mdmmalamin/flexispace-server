@@ -9,7 +9,7 @@ import ApiError from '../errors/ApiError';
 import handleDuplicateError from '../errors/handleDuplicateError';
 import httpStatus from 'http-status';
 
-const globalErrorHandler: ErrorRequestHandler = (err, req, res) => {
+const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
   // setting default values
   let statusCode = 500;
   let message = 'Something went wrong!';
