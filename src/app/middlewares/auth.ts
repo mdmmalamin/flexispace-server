@@ -16,7 +16,7 @@ const auth = (...requiredRoles: TUserRole[]) => {
     //? check - if the token role and requiredRoles matched
 
     const authHeader = req.headers.authorization;
-    console.log('authHeader: ', authHeader);
+    // console.log('authHeader: ', authHeader);
 
     const token = authHeader && authHeader.split(' ')[1];
 
@@ -43,7 +43,7 @@ const auth = (...requiredRoles: TUserRole[]) => {
       );
     }
 
-    console.log('role: ', role);
+    // console.log('role: ', role);
 
     req.user = user;
     next();

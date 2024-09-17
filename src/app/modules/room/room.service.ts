@@ -49,7 +49,7 @@ const updateRoomIntoDB = async (id: string, payload: Partial<TRoom>) => {
     },
   );
 
-  console.log(updatedPayload);
+  // console.log(updatedPayload);
 
   return result;
 };
