@@ -1,0 +1,522 @@
+{
+	"info": {
+		"_postman_id": "42be187b-b556-40d8-83ab-16ee76a2c65f",
+		"name": "Local Host | Port 5000",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24148431"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "User Sign Up",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Programming Hero\",\r\n    \"email\": \"amin910@gamil.com\",\r\n    \"password\": \"ph-password\",\r\n    \"phone\": \"1134567221\",\r\n    // \"role\": \"user\",\r\n    \"address\": \"123 Main Street, City, Country\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/auth/signup",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"amin@programming-hero.com\",\r\n    \"password\": \"ph-password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/auth/login",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Room",
+			"item": [
+				{
+					"name": "Create Room | Admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IndlYkBwcm9ncmFtbWluZy1oZXJvLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNjAwNTQyNCwiZXhwIjoxNzI2ODY5NDI0fQ.iLotN1hroxq5xz3JexRNYHl9b6J4gccT2Qq8xmX_5UM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Meeting Room\",\r\n    \"roomNo\": 202,\r\n    \"floorNo\": 1,\r\n    \"capacity\": 20,\r\n    \"pricePerSlot\": 100,\r\n    \"amenities\": [\r\n        \"Projector\",\r\n        \"Whiteboard\"\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/rooms",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"rooms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieved Rooms",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/rooms",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"rooms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieved Room By Id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/rooms/66e0d6422b838eea4bb7b4fd",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"rooms",
+								"66e0d6422b838eea4bb7b4fd"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Room By Id | Admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IndlYkBwcm9ncmFtbWluZy1oZXJvLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNTkzMDM4OCwiZXhwIjoxNzI2Nzk0Mzg4fQ.kyHYBEiSwnWonpgsZPONpU59g93Hp74mD-cAA78dhXY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pricePerSlot\": 300\r\n    // \"amenities\": [ \"Whiteboard\", \"Pen\", \"Paper\"]\r\n    // \"isDeleted\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/rooms/66e0d6422b838eea4bb7b4fd",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"rooms",
+								"66e0d6422b838eea4bb7b4fd"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Room By Id | Admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IndlYkBwcm9ncmFtbWluZy1oZXJvLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNTkzMDM4OCwiZXhwIjoxNzI2Nzk0Mzg4fQ.kyHYBEiSwnWonpgsZPONpU59g93Hp74mD-cAA78dhXY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/rooms/66e0d6422b838eea4bb7b4fd",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"rooms",
+								"66e0d6422b838eea4bb7b4fd"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Slot",
+			"item": [
+				{
+					"name": "Create Slot or Slots | Admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IndlYkBwcm9ncmFtbWluZy1oZXJvLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNjAwNTQyNCwiZXhwIjoxNzI2ODY5NDI0fQ.iLotN1hroxq5xz3JexRNYHl9b6J4gccT2Qq8xmX_5UM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"room\": \"66e0d6422b838eea4bb7b4fd\",\r\n    \"date\": \"2024-06-16\",\r\n    \"startTime\": \"09:00\",\r\n    \"endTime\": \"11:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/slots",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"slots"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieved Available Slots",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IndlYkBwcm9ncmFtbWluZy1oZXJvLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNjAwNTQyNCwiZXhwIjoxNzI2ODY5NDI0fQ.iLotN1hroxq5xz3JexRNYHl9b6J4gccT2Qq8xmX_5UM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"room\": \"66e0d6522b838eea4bb7b501\",\r\n    \"date\": \"2024-06-16\",\r\n    \"startTime\": \"23:00\",\r\n    \"endTime\": \"24:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/slots/availability",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"slots",
+								"availability"
+							],
+							"query": [
+								{
+									"key": "date",
+									"value": "2024-06-15",
+									"disabled": true
+								},
+								{
+									"key": "roomId",
+									"value": "66e0d6522b838eea4bb7b501",
+									"disabled": true
+								},
+								{
+									"key": "roomId",
+									"value": "66e0d6422b838eea4bb7b4fd",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Booking",
+			"item": [
+				{
+					"name": "Create a Booking | User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFtaW5AcHJvZ3JhbW1pbmctaGVyby5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNjUyNDA0NiwiZXhwIjoxNzI3Mzg4MDQ2fQ.j1REzEb1KrZyZBXoBoQhDnOEA2ABm27FAJIAGauSu5A",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"date\": \"2024-06-16\",\r\n    \"slots\": [\r\n        \"66e3087b46941de46055406b\"\r\n    ],\r\n    \"room\": \"66e0d6422b838eea4bb7b4fd\",\r\n    \"user\": \"66df5061cfab71b65d776e3b\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/bookings",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"bookings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieved All Booking | Admin",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IndlYkBwcm9ncmFtbWluZy1oZXJvLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNjUyMzAzMCwiZXhwIjoxNzI3Mzg3MDMwfQ.63DGQdLw2pOIk1UxDOcDtFMylDHCVEDcRRBXnCrNNkY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"date\": \"2024-06-16\",\r\n    \"slots\": [\r\n        \"66e202583d425f0eebd2e3d5\",\r\n        \"66e202583d425f0eebd2e3d7\",\r\n        \"66e202593d425f0eebd2e3d9\"\r\n    ],\r\n    \"room\": \"66e0d6522b838eea4bb7b501\",\r\n    \"user\": \"66df5061cfab71b65d776e3b\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/bookings",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"bookings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Booking | Admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IndlYkBwcm9ncmFtbWluZy1oZXJvLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNjUyMzAzMCwiZXhwIjoxNzI3Mzg3MDMwfQ.63DGQdLw2pOIk1UxDOcDtFMylDHCVEDcRRBXnCrNNkY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"isConfirmed\": \"unconfirmed\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/bookings/66e9e240a303db67cb7791db",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"bookings",
+								"66e9e240a303db67cb7791db"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Soft Delete Booking | Admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IndlYkBwcm9ncmFtbWluZy1oZXJvLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNjUyMzAzMCwiZXhwIjoxNzI3Mzg3MDMwfQ.63DGQdLw2pOIk1UxDOcDtFMylDHCVEDcRRBXnCrNNkY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"isConfirmed\": \"confirmed\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/bookings/66e8addbb37b6c79db3087bf",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"bookings",
+								"66e8addbb37b6c79db3087bf"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieved User's Booking | User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFtaW5AcHJvZ3JhbW1pbmctaGVyby5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNjUyNjMwMCwiZXhwIjoxNzI3MzkwMzAwfQ.X7z_uGIs_qOqvqWSUM5MaxpO1X9Y5I5tQyyvFikp2uc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/my-bookings",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"my-bookings"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Not Found",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{localhost}}/auth/",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"auth",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
