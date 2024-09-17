@@ -88,6 +88,10 @@ const updateBookingFromDB = async (id: string, payload: Partial<TBooking>) => {
     runValidators: true,
   });
 
+  if (!result) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'This booking not found!');
+  }
+
   return result;
 };
 
@@ -100,6 +104,10 @@ const deleteBookingFromDB = async (id: string) => {
       runValidators: true,
     },
   );
+
+  if (!result) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'This booking not found!');
+  }
 
   return result;
 };
