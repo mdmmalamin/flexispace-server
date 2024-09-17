@@ -1,7 +1,8 @@
 {
 	"info": {
-		"_postman_id": "42be187b-b556-40d8-83ab-16ee76a2c65f",
-		"name": "Local Host | Port 5000",
+		"_postman_id": "308a109b-8014-462c-8a65-40657dac8ab9",
+		"name": "Vercel Host",
+		"description": "[https://flexispace-server.vercel.app/](https://flexispace-server.vercel.app/)",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "24148431"
 	},
@@ -16,7 +17,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Programming Hero\",\r\n    \"email\": \"amin910@gamil.com\",\r\n    \"password\": \"ph-password\",\r\n    \"phone\": \"1134567221\",\r\n    // \"role\": \"user\",\r\n    \"address\": \"123 Main Street, City, Country\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Programming Hero\",\r\n    \"email\": \"web@programming-hero.com\",\r\n    \"password\": \"ph-password\",\r\n    \"phone\": \"1234567890\",\r\n    \"role\": \"admin\",\r\n    \"address\": \"123 Main Street, City, Country\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -24,9 +25,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{localhost}}/auth/signup",
+							"raw": "{{flexispace}}/auth/signup",
 							"host": [
-								"{{localhost}}"
+								"{{flexispace}}"
 							],
 							"path": [
 								"auth",
@@ -43,7 +44,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"amin@programming-hero.com\",\r\n    \"password\": \"ph-password\"\r\n}",
+							"raw": "{\r\n    \"email\": \"web@programming-hero.com\",\r\n    \"password\": \"ph-password\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -51,9 +52,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{localhost}}/auth/login",
+							"raw": "{{flexispace}}/auth/login",
 							"host": [
-								"{{localhost}}"
+								"{{flexispace}}"
 							],
 							"path": [
 								"auth",
@@ -76,7 +77,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IndlYkBwcm9ncmFtbWluZy1oZXJvLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNjAwNTQyNCwiZXhwIjoxNzI2ODY5NDI0fQ.iLotN1hroxq5xz3JexRNYHl9b6J4gccT2Qq8xmX_5UM",
+									"value": "{{tokenAdmin}}",
 									"type": "string"
 								}
 							]
@@ -85,7 +86,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Meeting Room\",\r\n    \"roomNo\": 202,\r\n    \"floorNo\": 1,\r\n    \"capacity\": 20,\r\n    \"pricePerSlot\": 100,\r\n    \"amenities\": [\r\n        \"Projector\",\r\n        \"Whiteboard\"\r\n    ]\r\n}",
+							"raw": "{\r\n    \"name\": \"General Meeting Room\",\r\n    \"roomNo\": 301,\r\n    \"floorNo\": 1,\r\n    \"capacity\": 10,\r\n    \"pricePerSlot\": 100,\r\n    \"amenities\": [\r\n        \"Projector\",\r\n        \"Whiteboard\",\r\n        \"Marker Pen\"\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -93,9 +94,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{localhost}}/rooms",
+							"raw": "{{flexispace}}/rooms",
 							"host": [
-								"{{localhost}}"
+								"{{flexispace}}"
 							],
 							"path": [
 								"rooms"
@@ -113,9 +114,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{localhost}}/rooms",
+							"raw": "{{flexispace}}/rooms",
 							"host": [
-								"{{localhost}}"
+								"{{flexispace}}"
 							],
 							"path": [
 								"rooms"
@@ -133,13 +134,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{localhost}}/rooms/66e0d6422b838eea4bb7b4fd",
+							"raw": "{{flexispace}}/rooms/66ea13769565aab721c0cf15",
 							"host": [
-								"{{localhost}}"
+								"{{flexispace}}"
 							],
 							"path": [
 								"rooms",
-								"66e0d6422b838eea4bb7b4fd"
+								"66ea13769565aab721c0cf15"
 							]
 						}
 					},
@@ -153,7 +154,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IndlYkBwcm9ncmFtbWluZy1oZXJvLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNTkzMDM4OCwiZXhwIjoxNzI2Nzk0Mzg4fQ.kyHYBEiSwnWonpgsZPONpU59g93Hp74mD-cAA78dhXY",
+									"value": "{{tokenAdmin}}",
 									"type": "string"
 								}
 							]
@@ -162,7 +163,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"pricePerSlot\": 300\r\n    // \"amenities\": [ \"Whiteboard\", \"Pen\", \"Paper\"]\r\n    // \"isDeleted\": false\r\n}",
+							"raw": "{\r\n  \"pricePerSlot\": 200 \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -170,13 +171,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{localhost}}/rooms/66e0d6422b838eea4bb7b4fd",
+							"raw": "{{flexispace}}/rooms/66ea12b59565aab721c0cf09",
 							"host": [
-								"{{localhost}}"
+								"{{flexispace}}"
 							],
 							"path": [
 								"rooms",
-								"66e0d6422b838eea4bb7b4fd"
+								"66ea12b59565aab721c0cf09"
 							]
 						}
 					},
@@ -190,7 +191,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IndlYkBwcm9ncmFtbWluZy1oZXJvLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNTkzMDM4OCwiZXhwIjoxNzI2Nzk0Mzg4fQ.kyHYBEiSwnWonpgsZPONpU59g93Hp74mD-cAA78dhXY",
+									"value": "{{tokenAdmin}}",
 									"type": "string"
 								}
 							]
@@ -199,7 +200,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \r\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -207,13 +208,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{localhost}}/rooms/66e0d6422b838eea4bb7b4fd",
+							"raw": "{{flexispace}}/rooms/66ea139a9565aab721c0cf1c",
 							"host": [
-								"{{localhost}}"
+								"{{flexispace}}"
 							],
 							"path": [
 								"rooms",
-								"66e0d6422b838eea4bb7b4fd"
+								"66ea139a9565aab721c0cf1c"
 							]
 						}
 					},
@@ -232,7 +233,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IndlYkBwcm9ncmFtbWluZy1oZXJvLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNjAwNTQyNCwiZXhwIjoxNzI2ODY5NDI0fQ.iLotN1hroxq5xz3JexRNYHl9b6J4gccT2Qq8xmX_5UM",
+									"value": "{{tokenAdmin}}",
 									"type": "string"
 								}
 							]
@@ -241,7 +242,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"room\": \"66e0d6422b838eea4bb7b4fd\",\r\n    \"date\": \"2024-06-16\",\r\n    \"startTime\": \"09:00\",\r\n    \"endTime\": \"11:00\"\r\n}",
+							"raw": "{\r\n    \"room\": \"66ea12b59565aab721c0cf09\",\r\n    \"date\": \"2024-10-10\",\r\n    \"startTime\": \"15:00\",\r\n    \"endTime\": \"18:00\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -249,9 +250,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{localhost}}/slots",
+							"raw": "{{flexispace}}/slots",
 							"host": [
-								"{{localhost}}"
+								"{{flexispace}}"
 							],
 							"path": [
 								"slots"
@@ -288,9 +289,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{localhost}}/slots/availability",
+							"raw": "{{flexispace}}/slots/availability",
 							"host": [
-								"{{localhost}}"
+								"{{flexispace}}"
 							],
 							"path": [
 								"slots",
@@ -299,17 +300,19 @@
 							"query": [
 								{
 									"key": "date",
-									"value": "2024-06-15",
+									"value": "2024-10-10",
 									"disabled": true
 								},
 								{
 									"key": "roomId",
-									"value": "66e0d6522b838eea4bb7b501",
+									"value": "66ea12b59565aab721c0cf09",
+									"description": "Conference Room",
 									"disabled": true
 								},
 								{
 									"key": "roomId",
-									"value": "66e0d6422b838eea4bb7b4fd",
+									"value": "66ea13769565aab721c0cf15",
+									"description": "General Meeting Room",
 									"disabled": true
 								}
 							]
@@ -330,7 +333,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFtaW5AcHJvZ3JhbW1pbmctaGVyby5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNjUyNDA0NiwiZXhwIjoxNzI3Mzg4MDQ2fQ.j1REzEb1KrZyZBXoBoQhDnOEA2ABm27FAJIAGauSu5A",
+									"value": "{{tokenUser}}",
 									"type": "string"
 								}
 							]
@@ -339,7 +342,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"date\": \"2024-06-16\",\r\n    \"slots\": [\r\n        \"66e3087b46941de46055406b\"\r\n    ],\r\n    \"room\": \"66e0d6422b838eea4bb7b4fd\",\r\n    \"user\": \"66df5061cfab71b65d776e3b\"\r\n}",
+							"raw": "{\r\n    \"date\": \"2024-10-10\",\r\n    \"slots\": [\r\n        \"66ea13ef9565aab721c0cf29\",\r\n        \"66ea13ef9565aab721c0cf2b\"\r\n    ],\r\n    \"room\": \"66ea13769565aab721c0cf15\",\r\n    \"user\": \"66e9f452734e1ef7f927311d\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -347,9 +350,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{localhost}}/bookings",
+							"raw": "{{flexispace}}/bookings",
 							"host": [
-								"{{localhost}}"
+								"{{flexispace}}"
 							],
 							"path": [
 								"bookings"
@@ -369,7 +372,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IndlYkBwcm9ncmFtbWluZy1oZXJvLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNjUyMzAzMCwiZXhwIjoxNzI3Mzg3MDMwfQ.63DGQdLw2pOIk1UxDOcDtFMylDHCVEDcRRBXnCrNNkY",
+									"value": "{{tokenAdmin}}",
 									"type": "string"
 								}
 							]
@@ -386,9 +389,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{localhost}}/bookings",
+							"raw": "{{flexispace}}/bookings",
 							"host": [
-								"{{localhost}}"
+								"{{flexispace}}"
 							],
 							"path": [
 								"bookings"
@@ -405,7 +408,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IndlYkBwcm9ncmFtbWluZy1oZXJvLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNjUyMzAzMCwiZXhwIjoxNzI3Mzg3MDMwfQ.63DGQdLw2pOIk1UxDOcDtFMylDHCVEDcRRBXnCrNNkY",
+									"value": "{{tokenAdmin}}",
 									"type": "string"
 								}
 							]
@@ -414,7 +417,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"isConfirmed\": \"unconfirmed\"\r\n}",
+							"raw": "{\r\n    \"isConfirmed\": \"confirmed\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -422,13 +425,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{localhost}}/bookings/66e9e240a303db67cb7791db",
+							"raw": "{{flexispace}}/bookings/66ea15559565aab721c0cf51",
 							"host": [
-								"{{localhost}}"
+								"{{flexispace}}"
 							],
 							"path": [
 								"bookings",
-								"66e9e240a303db67cb7791db"
+								"66ea15559565aab721c0cf51"
 							]
 						}
 					},
@@ -442,7 +445,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IndlYkBwcm9ncmFtbWluZy1oZXJvLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNjUyMzAzMCwiZXhwIjoxNzI3Mzg3MDMwfQ.63DGQdLw2pOIk1UxDOcDtFMylDHCVEDcRRBXnCrNNkY",
+									"value": "{{tokenAdmin}}",
 									"type": "string"
 								}
 							]
@@ -459,13 +462,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{localhost}}/bookings/66e8addbb37b6c79db3087bf",
+							"raw": "{{flexispace}}/bookings/66ea15559565aab721c0cf51",
 							"host": [
-								"{{localhost}}"
+								"{{flexispace}}"
 							],
 							"path": [
 								"bookings",
-								"66e8addbb37b6c79db3087bf"
+								"66ea15559565aab721c0cf51"
 							]
 						}
 					},
@@ -479,7 +482,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFtaW5AcHJvZ3JhbW1pbmctaGVyby5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNjUyNjMwMCwiZXhwIjoxNzI3MzkwMzAwfQ.X7z_uGIs_qOqvqWSUM5MaxpO1X9Y5I5tQyyvFikp2uc",
+									"value": "{{tokenUser}}",
 									"type": "string"
 								}
 							]
@@ -487,9 +490,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{localhost}}/my-bookings",
+							"raw": "{{flexispace}}/my-bookings",
 							"host": [
-								"{{localhost}}"
+								"{{flexispace}}"
 							],
 							"path": [
 								"my-bookings"
@@ -506,13 +509,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{localhost}}/auth/",
+					"raw": "{{flexispace}}/aut",
 					"host": [
-						"{{localhost}}"
+						"{{flexispace}}"
 					],
 					"path": [
-						"auth",
-						""
+						"aut"
 					]
 				}
 			},
