@@ -18,23 +18,23 @@ FlexiSpace – Simplifying Meeting Room Bookings for Co-working Spaces. Seamless
 
 ## Features
 
--**Real-Time Room Availability:** Instantly view available meeting rooms with real-time updates on room status and slot availability.
+- **Real-Time Room Availability:** Instantly view available meeting rooms with real-time updates on room status and slot availability.
 
--**Room Details and Amenities:** Display detailed information about each room, including capacity, floor number, and available amenities (e.g., projectors, whiteboards).
+- **Room Details and Amenities:** Display detailed information about each room, including capacity, floor number, and available amenities (e.g., projectors, whiteboards).
 
--**Slot-Based Booking:** Book rooms by specific time slots, allowing users to reserve spaces for their exact needs without unnecessary overhead.
+- **Slot-Based Booking:** Book rooms by specific time slots, allowing users to reserve spaces for their exact needs without unnecessary overhead.
 
--**Recurring and Flexible Bookings:** Support for recurring room reservations and flexible booking modifications, including cancellations and reschedules.
+- **Recurring and Flexible Bookings:** Support for recurring room reservations and flexible booking modifications, including cancellations and reschedules.
 
--**Admin Dashboard:** Comprehensive admin interface for managing room details, booking policies, and availability settings.
+- **Admin Dashboard:** Comprehensive admin interface for managing room details, booking policies, and availability settings.
 
--**User Authentication and Profiles:** Users can sign up, log in, and manage their booking history and preferences through personalized profiles.
+- **User Authentication and Profiles:** Users can sign up, log in, and manage their booking history and preferences through personalized profiles.
 
--**Pricing Management:** Configure custom room pricing per slot, allowing flexible rate adjustments based on room type, time, or demand.
+- **Pricing Management:** Configure custom room pricing per slot, allowing flexible rate adjustments based on room type, time, or demand.
 
--**Booking Confirmation:** Status indicators such as "confirmed," "unconfirmed," and "canceled" for easy tracking of each booking's current state.
+- **Booking Confirmation:** Status indicators such as "confirmed," "unconfirmed," and "canceled" for easy tracking of each booking's current state.
 
--**Security and Privacy Controls:** Implements robust security for user data and booking information, adhering to best practices for privacy protection.
+- **Security and Privacy Controls:** Implements robust security for user data and booking information, adhering to best practices for privacy protection.
 
 ## Technology Stack
 
