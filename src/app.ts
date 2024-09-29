@@ -14,6 +14,7 @@ app.use(cookieParser());
 app.use(
   cors({
     origin: ['http://localhost:5173', 'https://flexispace.netlify.app/'],
+    credentials: true, // Allow credentials (cookies, authorization headers)
   }),
 );
 
