@@ -10,8 +10,12 @@ const app: Application = express();
 // Parsers
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors());
-// app.use(cors({ origin: ['http://localhost:5173'] }));
+// app.use(cors());
+app.use(
+  cors({
+    origin: ['http://localhost:5173', 'https://flexispace.netlify.app/'],
+  }),
+);
 
 // Application routes
 app.use('/api', router);
