@@ -80,17 +80,31 @@ const createSlotIntoDB = async (payload: TSlot) => {
 };
 
 const retrieveAvailableSlotsFromDB = async (query: Record<string, unknown>) => {
-  // console.log(query?.date);
   const availableSlotsQuery = new QueryBuilder(
     Slot.find({
       isBooked: false,
     }).populate('room'),
     query,
   ).filter();
-  return availableSlotsQuery.modelQuery;
+  return await availableSlotsQuery.modelQuery;
+};
+
+const deleteSlotFromDB = async (id: string) => {
+  const slot = await Slot.findById(id);
+  if (!slot) {
+    throw new ApiError(httpStatus.CONFLICT, 'This slot does not exists!');
+  }
+
+  const result = await Slot.findByIdAndDelete(id, {
+    new: true,
+    runValidators: true,
+  });
+
+  return result;
 };
 
 export const SlotServices = {
   createSlotIntoDB,
   retrieveAvailableSlotsFromDB,
+  deleteSlotFromDB,
 };

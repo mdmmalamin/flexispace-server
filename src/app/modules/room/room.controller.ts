@@ -18,7 +18,7 @@ const createRoom = catchAsync(async (req, res) => {
 });
 
 const retrieveAllRooms = catchAsync(async (req, res) => {
-  const result = await RoomServices.retrieveAllRoomsFromDB();
+  const result = await RoomServices.retrieveAllRoomsFromDB(req.query);
 
   isDataFound(res, result);
 

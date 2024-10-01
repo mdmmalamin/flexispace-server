@@ -16,4 +16,6 @@ router.post(
 
 router.get('/availability', SlotControllers.retrieveAvailableSlots);
 
+router.delete('/', auth(USER_ROLE.admin), SlotControllers.deleteDeleteById);
+
 export const SlotRoutes = router;

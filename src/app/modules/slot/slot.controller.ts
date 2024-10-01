@@ -30,7 +30,22 @@ const retrieveAvailableSlots = catchAsync(async (req, res) => {
   });
 });
 
+const deleteDeleteById = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const result = await SlotServices.deleteSlotFromDB(id);
+
+  isDataFound(res, result);
+
+  apiResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'Slot deleted successfully',
+    data: result,
+  });
+});
+
 export const SlotControllers = {
   createSlot,
   retrieveAvailableSlots,
+  deleteDeleteById,
 };
