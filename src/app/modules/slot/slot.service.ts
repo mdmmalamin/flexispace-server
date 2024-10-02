@@ -89,6 +89,33 @@ const retrieveAvailableSlotsFromDB = async (query: Record<string, unknown>) => {
   return await availableSlotsQuery.modelQuery;
 };
 
+//!!! TODO: I'm trying to update & optimize this service
+const updateSlotIntoDB = async (id: string, payload: Partial<TSlot>) => {
+  if (typeof payload !== 'object' || payload === null) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid update data!');
+  }
+
+  const slot = await Slot.findById(id);
+  if (!slot) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'This Slot not found!');
+  }
+
+  const updatedPayload = { ...slot.toObject(), ...payload };
+
+  const result = await Slot.findByIdAndUpdate(
+    id,
+    { ...updatedPayload },
+    {
+      new: true,
+      runValidators: true,
+    },
+  );
+
+  // console.log(updatedPayload);
+
+  return result;
+};
+
 const deleteSlotFromDB = async (id: string) => {
   const slot = await Slot.findById(id);
   if (!slot) {
@@ -106,5 +133,6 @@ const deleteSlotFromDB = async (id: string) => {
 export const SlotServices = {
   createSlotIntoDB,
   retrieveAvailableSlotsFromDB,
+  updateSlotIntoDB,
   deleteSlotFromDB,
 };
