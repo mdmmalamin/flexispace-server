@@ -6,6 +6,8 @@ import { Booking } from './booking.model';
 import { Slot } from '../slot/slot.model';
 import { JwtPayload } from 'jsonwebtoken';
 import { Room } from '../room/room.model';
+import QueryBuilder from '../../builder/QueryBuilder';
+import { BookingSearchableFields } from './booking.constant';
 
 const createBookingIntoDB = async (payload: Partial<TBooking>) => {
   const { date, slots, room, user } = payload;
@@ -66,11 +68,19 @@ const createBookingIntoDB = async (payload: Partial<TBooking>) => {
   return result;
 };
 
-const retrieveAllBookingsFromDB = async () => {
-  return await Booking.find()
-    .populate('slots')
-    .populate('room')
-    .populate('user');
+const retrieveAllBookingsFromDB = async (query: Record<string, unknown>) => {
+  const bookingQuery = new QueryBuilder(
+    Booking.find().populate('slots').populate('room').populate('user'),
+    query,
+  )
+    .search(BookingSearchableFields)
+    .filter()
+    .sort()
+    .paginate()
+    .fields();
+
+  const result = await bookingQuery.modelQuery;
+  return result;
 };
 
 const retrieveUsersBookingsFromDB = async (user: JwtPayload) => {
