@@ -26,6 +26,12 @@ router.get(
   BookingControllers.retrieveUsersBookings,
 );
 
+router.get(
+  '/my-bookings/:id',
+  auth(USER_ROLE.user),
+  BookingControllers.retrieveUsersBookingsCheckout,
+);
+
 router.put(
   '/bookings/:id',
   auth(USER_ROLE.admin),

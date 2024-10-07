@@ -44,6 +44,24 @@ const retrieveUsersBookings = catchAsync(async (req, res) => {
   });
 });
 
+const retrieveUsersBookingsCheckout = catchAsync(async (req, res) => {
+  const user = req.user;
+  const { id } = req.params;
+  const result = await BookingServices.retrieveUsersBookingsCheckoutFromDB(
+    user,
+    id,
+  );
+
+  isDataFound(res, result);
+
+  apiResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'User bookings checkout retrieved successfully',
+    data: result,
+  });
+});
+
 const updateBooking = catchAsync(async (req, res) => {
   const { id } = req.params;
   const result = await BookingServices.updateBookingFromDB(id, req.body);
@@ -76,6 +94,7 @@ export const BookingControllers = {
   createBooking,
   retrieveAllBookings,
   retrieveUsersBookings,
+  retrieveUsersBookingsCheckout,
   updateBooking,
   deleteBooking,
 };

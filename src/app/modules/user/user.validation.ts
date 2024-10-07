@@ -10,7 +10,7 @@ const createUserValidationSchema = z.object({
     password: z.string({ required_error: 'Password is required' }),
     phone: z.string({ required_error: 'Phone no is required' }).trim(),
     address: z.string().trim().optional(),
-    role: z.enum(['admin', 'user']),
+    role: z.enum(['admin', 'user']).optional(),
   }),
 });
 

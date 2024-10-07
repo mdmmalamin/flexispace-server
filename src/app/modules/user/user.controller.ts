@@ -40,7 +40,37 @@ const loginUser = catchAsync(async (req, res) => {
   });
 });
 
+const retrieveAllUsers = catchAsync(async (req, res) => {
+  const result = await UserServices.retrieveAllUserFromDB(req.query);
+
+  isDataFound(res, result);
+
+  apiResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'All User retrieved successfully',
+    data: result,
+  });
+});
+
+const retrieveUser = catchAsync(async (req, res) => {
+  // const { id } = req.params;
+  const result = await UserServices.retrieveUserFromDB(req.user._id);
+
+  isDataFound(res, result);
+
+  apiResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'User retrieved successfully',
+    data: result,
+  });
+});
+
 export const UserControllers = {
   signupUser,
   loginUser,
+
+  retrieveAllUsers,
+  retrieveUser,
 };

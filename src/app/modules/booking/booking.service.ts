@@ -84,7 +84,19 @@ const retrieveAllBookingsFromDB = async (query: Record<string, unknown>) => {
 };
 
 const retrieveUsersBookingsFromDB = async (user: JwtPayload) => {
-  const result = await Booking.findOne({ user: user._id })
+  const result = await Booking.find({ user: user._id })
+    .select('-user')
+    .populate('slots')
+    .populate('room');
+
+  return result;
+};
+
+const retrieveUsersBookingsCheckoutFromDB = async (
+  user: JwtPayload,
+  id: string,
+) => {
+  const result = await Booking.findOne({ user: user._id, _id: id })
     .select('-user')
     .populate('slots')
     .populate('room');
@@ -126,6 +138,7 @@ export const BookingServices = {
   createBookingIntoDB,
   retrieveAllBookingsFromDB,
   retrieveUsersBookingsFromDB,
+  retrieveUsersBookingsCheckoutFromDB,
   updateBookingFromDB,
   deleteBookingFromDB,
 };

@@ -40,6 +40,7 @@ const userSchema = new Schema<TUser, UserModel>(
         values: ['admin', 'user'],
         message: '{VALUE} is not a valid user!',
       },
+      default: 'user',
     },
   },
   {

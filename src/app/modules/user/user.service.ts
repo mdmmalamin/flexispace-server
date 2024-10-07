@@ -4,6 +4,8 @@ import { TUser } from './user.interface';
 import { User } from './user.model';
 import { createToken } from '../../utils/generateAccessToken';
 import config from '../../config';
+import QueryBuilder from '../../builder/QueryBuilder';
+import { UserSearchableFields } from './user.constant';
 
 const createUserIntoDB = async (payload: TUser) => {
   //? get user details from frontend (req.body)
@@ -38,6 +40,23 @@ const createUserIntoDB = async (payload: TUser) => {
       'User with email or phone already exists!',
     );
   }
+
+  // const jwtPayload = {
+  //   email: userData.email,
+  //   role: userData.role,
+  // };
+
+  // const accessToken = createToken(
+  //   jwtPayload,
+  //   config.jwt_access_secret as string,
+  //   config.jwt_access_expires_in as string,
+  // );
+  // if (!accessToken) {
+  //   throw new ApiError(
+  //     httpStatus.INTERNAL_SERVER_ERROR,
+  //     'Something went wrong while generating access token!',
+  //   );
+  // }
 
   const user = await User.create(userData);
 
@@ -106,7 +125,31 @@ const loginUserFromDB = async (payload: TUser) => {
   return { userResponse, accessToken };
 };
 
+const retrieveAllUserFromDB = async (query: Record<string, unknown>) => {
+  const userQuery = new QueryBuilder(User.find(), query)
+    .search(UserSearchableFields)
+    .filter()
+    .sort()
+    .paginate()
+    .fields();
+
+  const result = await userQuery.modelQuery;
+  return result;
+};
+
+const retrieveUserFromDB = async (id: string) => {
+  const result = await User.findById(id);
+  if (!result) {
+    throw new ApiError(httpStatus.CONFLICT, 'This user does not exists!');
+  }
+
+  return result;
+};
+
 export const UserServices = {
   createUserIntoDB,
   loginUserFromDB,
+
+  retrieveAllUserFromDB,
+  retrieveUserFromDB,
 };
